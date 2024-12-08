@@ -1,0 +1,83 @@
+skyway:
+  app_id: <APP_ID>
+  secret_key: <SECRET_KEY>
+  channel:
+    url: https://channel.skyway.ntt.com/v1/json-rpc
+  rtc_api:
+    url: wss://rtc-api.skyway.ntt.com/ws
+  recording:
+    url: https://recording.skyway.ntt.com/v1
+    output:
+      gcs:
+        bucket: recording-bucket
+        credential_file: /path/to/credential.json
+      s3:
+        bucket: recording-bucket
+        access_key_id: ACCESS_KEY_ID
+        secret_access_key: SECRET_ACCESS_KEY
+        region: ap-northeast-1
+      wasabi:
+        bucket: recording-bucket
+        access_key_id: ACCESS_KEY_ID
+        secret_access_key: SECRET_ACCESS_KEY
+        region: ap-northeast-1
+  token:
+    expire: 3600
+    tmpl: |
+      {
+        "jti": "JTI_PLACEHOLDER",
+        "iat": 0,
+        "exp": 0,
+        "version": 2,
+        "scope": {
+          "app": {
+            "id": "APP_ID_PLACEHOLDER",
+            "actions": [
+              "read"
+            ],
+            "turn": true,
+            "channels": [
+              {
+                "id": "*",
+                "name": "*",
+                "actions": [
+                  "write"
+                ],
+                "members": [
+                  {
+                    "id": "*",
+                    "name": "*",
+                    "actions": [
+                      "write"
+                    ],
+                    "publication": {
+                      "actions": [
+                        "write"
+                      ]
+                    },
+                    "subscription": {
+                      "actions": [
+                        "write"
+                      ]
+                    }
+                  }
+                ],
+                "sfuBots": [
+                  {
+                    "actions": [
+                      "write"
+                    ],
+                    "forwardings": [
+                      {
+                        "actions": [
+                          "write"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
